@@ -9,7 +9,7 @@ export const useGiphyStore = defineStore("giphy", {
     pagination: {
       total: 0,
       page: 1,
-      limit: 20,
+      limit: 50,
     },
   }),
   actions: {

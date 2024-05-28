@@ -1,20 +1,30 @@
 <template>
-  <div>
-    <form @submit.prevent="search">
-      <input type="text" v-model="searchQuery" placeholder="Search Gifs" />
-      <button type="submit">Search</button>
-      <button type="button" @click="clearSearch">Clear Search</button>
+  <div class="container">
+    <form @submit.prevent="search" class="search-form">
+      <input type="text" v-model="searchQuery" placeholder="Search Gifs" class="search-input" />
+      <div class="button-group">
+        <button type="submit" class="btn btn-search">Search</button>
+        <button type="button" @click="clearSearch" class="btn btn-clear">Clear Search</button>
+      </div>
     </form>
-    <div v-if="loading">Loading...</div>
-    <div v-for="gif in gifs" :key="gif.id" class="gif">
-      <img :src="gif.images.fixed_width_small.url" />
+    <div v-if="loading" class="loading">Loading...</div>
+    <div class="grid">
+      <div v-for="gif in gifs" :key="gif.id" class="gif">
+        <img :src="gif.images.fixed_width_small.url" />
+      </div>
     </div>
-    <button @click="previousPage" :disabled="pagination.page === 1">
-      Previous
-    </button>
-    <button @click="nextPage" :disabled="pagination.page * 20 >= pagination.total">
-      Next
-    </button>
+    <div class="pagination-buttons">
+      <button @click="previousPage" :disabled="pagination.page === 1" class="btn btn-prev">
+        Previous
+      </button>
+      <button
+        @click="nextPage"
+        :disabled="pagination.page * 50 >= pagination.total"
+        class="btn btn-next"
+      >
+        Next
+      </button>
+    </div>
   </div>
 </template>
 
@@ -41,7 +51,69 @@ const { nextPage, previousPage } = store;
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.search-form {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  width: 300px;
+}
+
+.button-group {
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-search {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-clear {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-prev, .btn-next {
+  background-color: #008cba;
+  color: white;
+}
+
+.loading {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .gif {
-  padding: 3px;
+  padding: 5px;
+}
+
+.pagination-buttons {
+  margin-top: 20px;
 }
 </style>
