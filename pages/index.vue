@@ -1,20 +1,31 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <form @submit.prevent="search" class="search-form">
-      <input type="text" v-model="searchQuery" placeholder="Search Gifs" class="search-input" />
+      <input
+        type="text"
+        v-model="searchQuery"
+        placeholder="Search Gifs"
+        class="search-input"
+      />
       <div class="button-group">
         <button type="submit" class="btn btn-search">Search</button>
-        <button type="button" @click="clearSearch" class="btn btn-clear">Clear Search</button>
+        <button type="button" @click="clearSearch" class="btn btn-clear">
+          Clear Search
+        </button>
       </div>
     </form>
     <div v-if="loading" class="loading">Loading...</div>
     <div class="grid">
       <div v-for="gif in gifs" :key="gif.id" class="gif lazy">
-        <img  :src="gif.images.fixed_width_small.url" />
+        <img :src="gif.images.fixed_width_small.url" />
       </div>
     </div>
     <div class="pagination-buttons">
-      <button @click="previousPage" :disabled="pagination.page === 1" class="btn btn-prev">
+      <button
+        @click="previousPage"
+        :disabled="pagination.page === 1"
+        class="btn btn-prev"
+      >
         Previous
       </button>
       <button
@@ -51,11 +62,17 @@ const { nextPage, previousPage } = store;
 </script>
 
 <style scoped>
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  justify-content: center;
 }
 
 .search-form {
@@ -92,14 +109,22 @@ const { nextPage, previousPage } = store;
   color: white;
 }
 
-.btn-prev, .btn-next {
+.btn-prev,
+.btn-next {
   background-color: #008cba;
   color: white;
 }
 
 .loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
   font-size: 20px;
-  margin-top: 20px;
 }
 
 .grid {
@@ -115,5 +140,9 @@ const { nextPage, previousPage } = store;
 
 .pagination-buttons {
   margin-top: 20px;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 }
 </style>
