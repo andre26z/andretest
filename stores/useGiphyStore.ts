@@ -32,7 +32,7 @@ export const useGiphyStore = defineStore("giphy", {
         this.gifs = response.data.data;
         this.pagination.total = response.data.pagination.total_count;
       } catch (error) {
-        console.log("failed to fetch the gifs", error);
+        console.error("Failed to fetch gifs:", error);
       } finally {
         this.loading = false;
       }

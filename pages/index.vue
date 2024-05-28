@@ -9,8 +9,8 @@
     </form>
     <div v-if="loading" class="loading">Loading...</div>
     <div class="grid">
-      <div v-for="gif in gifs" :key="gif.id" class="gif">
-        <img :src="gif.images.fixed_width_small.url" />
+      <div v-for="gif in gifs" :key="gif.id" class="gif lazy">
+        <img  :src="gif.images.fixed_width_small.url" />
       </div>
     </div>
     <div class="pagination-buttons">
@@ -19,7 +19,7 @@
       </button>
       <button
         @click="nextPage"
-        :disabled="pagination.page * 50 >= pagination.total"
+        :disabled="pagination.page * pagination.limit >= pagination.total"
         class="btn btn-next"
       >
         Next
